@@ -34,11 +34,14 @@
            <bool>false</bool>
           </property>
           <widget class="QTableWidget" name="pathsTable">
-           <property name="gridStyle">
-            <enum>Qt::DashLine</enum>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
            </property>
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
            </attribute>
            <column>
             <property name="text">
@@ -57,11 +60,14 @@
            </column>
           </widget>
           <widget class="QTableWidget" name="pathValuesTable">
-           <property name="gridStyle">
-            <enum>Qt::DashLine</enum>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
            </property>
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
            </attribute>
            <column>
             <property name="text">
@@ -85,11 +91,14 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QTableWidget" name="variablesTable">
-          <property name="gridStyle">
-           <enum>Qt::DashLine</enum>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
           </property>
           <attribute name="horizontalHeaderStretchLastSection">
            <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
           </attribute>
           <column>
            <property name="text">
