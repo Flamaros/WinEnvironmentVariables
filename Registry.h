@@ -66,8 +66,10 @@ public:
           * @path   Path of the key from the root, names must have to be separated by the keySeparator ("/")
           */
         bool    create(const QString& path);
-        bool    open(const QString& path);
+        bool    open(const QString& path);  /// Also load values
         void    close();
+
+        QList<Value>    values() const {return mValues;}
 
     private:
         void    registerPath(const QString& path);

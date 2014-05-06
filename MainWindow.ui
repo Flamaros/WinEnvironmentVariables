@@ -33,7 +33,7 @@
           <property name="childrenCollapsible">
            <bool>false</bool>
           </property>
-          <widget class="QTableWidget" name="tableWidget_2">
+          <widget class="QTableWidget" name="pathsTable">
            <property name="gridStyle">
             <enum>Qt::DashLine</enum>
            </property>
@@ -56,7 +56,7 @@
             </property>
            </column>
           </widget>
-          <widget class="QTableWidget" name="tableWidget_3">
+          <widget class="QTableWidget" name="pathValuesTable">
            <property name="gridStyle">
             <enum>Qt::DashLine</enum>
            </property>
@@ -84,7 +84,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="QTableWidget" name="variablesTable">
           <property name="gridStyle">
            <enum>Qt::DashLine</enum>
           </property>

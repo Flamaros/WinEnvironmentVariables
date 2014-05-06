@@ -12,12 +12,14 @@ TARGET = WinEnvironmentVariables
 TEMPLATE = app
 
 SOURCES += \
-	main.cpp \
+    main.cpp \
+    Environment.cpp \
 	MainWindow.cpp \
 	Registry.cpp
 
 HEADERS  += \
-	MainWindow.h \
+    Environment.h \
+    MainWindow.h \
 	Registry.h
 
 FORMS    += MainWindow.ui

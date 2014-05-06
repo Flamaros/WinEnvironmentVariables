@@ -2,6 +2,8 @@
 
 #include <QMainWindow>
 
+#include "Environment.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -15,7 +17,9 @@ public:
     ~MainWindow();
 
 private:
-    void    loadVariablesFromRegistry();
+    void    loadVariables();
 
     Ui::MainWindow *ui;
+
+    Environment mEnvironment;
 };
