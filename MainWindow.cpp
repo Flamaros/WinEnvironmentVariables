@@ -31,6 +31,7 @@ void    MainWindow::loadVariables()
         newItem = new QTableWidgetItem(variables[i].name);
         ui->variablesTable->setItem(i, 0, newItem);
 
+        // TODO put the owner in a combo box
         newItem = new QTableWidgetItem(variables[i].owner);
         ui->variablesTable->setItem(i, 1, newItem);
 
