@@ -20,4 +20,18 @@ Environment::Environment()
         variable.value = values[i].value().toString();
         mSimpleVariables.push_back(variable);
     }
+
+    path.open("HKEY_CURRENT_USER/Environment");
+
+    values = path.values();
+    mSimpleVariables.reserve(mSimpleVariables.size() + values.size());
+    for (int i = 0; i < values.size(); i++)
+    {
+        Variable    variable;
+
+        variable.name = values[i].name();
+        variable.owner = "User";
+        variable.value = values[i].value().toString();
+        mSimpleVariables.push_back(variable);
+    }
 }

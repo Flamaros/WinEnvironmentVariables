@@ -2,6 +2,8 @@
 
 #include <QStringList>
 
+// TODO Check if Windows variables are correctly updated if this application modify them throw the registry
+
 class Environment
 {
 public:
