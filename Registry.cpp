@@ -53,7 +53,7 @@ Registry::Value::Value(const quint8* name, quint32 nameSize, quint32 type, const
         break;
     case REG_EXPAND_SZ:
     {
-        mValue = QString::fromWCharArray((wchar_t*)data, dataSize);
+        mValue = QString::fromWCharArray((wchar_t*)data, dataSize / 2 - 1);
 
         LPWSTR evaluatedValue = new WCHAR[maxValueNameLength];
         ExpandEnvironmentStringsW((LPWSTR)data,
@@ -77,7 +77,7 @@ Registry::Value::Value(const quint8* name, quint32 nameSize, quint32 type, const
         break;
     case REG_SZ:
     {
-        mValue = QString::fromWCharArray((wchar_t*)data, dataSize);
+        mValue = QString::fromWCharArray((wchar_t*)data, dataSize / 2 - 1);
         break;
     }
     default:
@@ -225,6 +225,9 @@ void    Registry::Key::close()
     mData->baseKey = NULL;
     mData->subKey.clear();
     mData->key = NULL ;
+
+    mFullPath.clear();
+    mValues.clear();
 }
 
 void    Registry::Key::registerPath(const QString& path)
