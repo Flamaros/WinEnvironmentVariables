@@ -37,4 +37,8 @@ void    MainWindow::loadVariables()
         newItem = new QTableWidgetItem(variables[i].value);
         ui->variablesTable->setItem(i, 2, newItem);
     }
+
+    ui->pathsTable->resizeColumnsToContents();
+    ui->pathValuesTable->resizeColumnsToContents();
+    ui->variablesTable->resizeColumnsToContents();
 }
