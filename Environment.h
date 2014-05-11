@@ -2,6 +2,8 @@
 
 #include <QStringList>
 
+#include "Registry.h"
+
 // TODO Check if Windows variables are correctly updated if this application modify them throw the registry
 
 class Environment
@@ -12,13 +14,28 @@ public:
         QString name;
         QString owner;
         QString value;
+        QString expandedValue;
+    };
+
+    struct Path
+    {
+        QString     name;
+        QString     owner;
+        QStringList paths;
+        QStringList evaluatedPaths;
     };
 
 public:
     Environment();
 
-    QList<Variable> simpleVariables() const {return mSimpleVariables;}
+    QList<Variable> variables() const {return mVariables;}
+    QList<Path>     paths() const {return mPaths;}
 
 private:
-    QList<Variable> mSimpleVariables;
+    void    filterVariables(const QList<Registry::Value>& values, const QString& owner);
+
+    static bool isPath(const QString& expandedValue);
+
+    QList<Variable> mVariables;
+    QList<Path>     mPaths;
 };

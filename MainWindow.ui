@@ -56,11 +56,6 @@
              <string>Owner</string>
             </property>
            </column>
-           <column>
-            <property name="text">
-             <string>Value</string>
-            </property>
-           </column>
           </widget>
           <widget class="QTableWidget" name="pathValuesTable">
            <property name="alternatingRowColors">
@@ -82,7 +77,7 @@
            </column>
            <column>
             <property name="text">
-             <string>Evaluated path</string>
+             <string>Expanded path</string>
             </property>
            </column>
           </widget>
@@ -122,6 +117,11 @@
           <column>
            <property name="text">
             <string>Value</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Expanded value</string>
            </property>
           </column>
          </widget>

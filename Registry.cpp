@@ -54,13 +54,7 @@ Registry::Value::Value(const quint8* name, quint32 nameSize, quint32 type, const
     case REG_EXPAND_SZ:
     {
         mValue = QString::fromWCharArray((wchar_t*)data, dataSize / 2 - 1);
-
-        LPWSTR evaluatedValue = new WCHAR[maxValueNameLength];
-        ExpandEnvironmentStringsW((LPWSTR)data,
-                                  evaluatedValue,
-                                  maxValueNameLength);
-        mEvaluatedValue = QString::fromWCharArray((wchar_t*)evaluatedValue);
-        delete[] evaluatedValue;
+        mExpandedValue = expandEnvironmentStrings(mValue.toString());
         break;
     }
     case REG_LINK:
@@ -81,16 +75,30 @@ Registry::Value::Value(const quint8* name, quint32 nameSize, quint32 type, const
         break;
     }
     default:
-        qCritical("Value : \"%s\" - Unknow type : %ld", qPrintable(mName), type);
+        qCritical("Value : \"%s\" - Unknow type : %u", qPrintable(mName), type);
         break;
     }
 
-    if (mEvaluatedValue.isNull())
-        mEvaluatedValue = mValue;
+    if (mExpandedValue.isNull())
+        mExpandedValue = mValue;
 
     qDebug("Value name : \"%s\"\tvalue : \"%s\"",
            qPrintable(mName),
            qPrintable(mValue.toString()));
+}
+
+QString  Registry::Value::expandEnvironmentStrings(const QString& value)
+{
+    QString result;
+    DWORD   length;
+    LPWSTR  expandedValue;
+
+    length = ExpandEnvironmentStringsW(value.toStdWString().c_str(), NULL, 0);  // Request the size of the destination buffer
+    expandedValue = new WCHAR[length];
+    length = ExpandEnvironmentStringsW(value.toStdWString().c_str(), expandedValue, length);
+    result = QString::fromWCharArray((wchar_t*)expandedValue);
+    delete[] expandedValue;
+    return result;
 }
 
 //==============================================================================

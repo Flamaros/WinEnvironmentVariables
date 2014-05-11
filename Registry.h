@@ -34,8 +34,8 @@ public:
         QString name() const {return mName;}
 
         void        setValue(const QVariant& value) {mValue = value;}
-        QVariant    value() const {return mValue;}              /// Please notice values of type REG_EXPAND_SZ aren't evaluated, instead use can use evaluatedValue method
-        QVariant    evaluatedValue() const {mEvaluatedValue;}   /// Same as value, except when type is REG_EXPAND_SZ
+        QVariant    value() const {return mValue;}              /// Please notice values of type REG_EXPAND_SZ aren't expanded, instead use can use expandedValue method.
+        QVariant    expandedValue() const {return mExpandedValue;}   /// If value type is REG_EXPAND_SZ, environment variables expanded. Else it's the same as value.
 
         void    setType(Types);
         Types   type() const;
@@ -48,9 +48,11 @@ public:
           */
         Value(const quint8* name, quint32 nameSize, quint32 type, const quint8* data, quint32 dataSize);
 
+        static QString  expandEnvironmentStrings(const QString& value);
+
         QString     mName;
         QVariant    mValue;
-        QVariant    mEvaluatedValue;
+        QVariant    mExpandedValue;
     };
 
     /// @brief This class represent the basic container for the values stored in the Windows registry database (Represented as folders by regedit.exe)
