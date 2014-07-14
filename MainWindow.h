@@ -16,6 +16,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void on_pathsTable_itemSelectionChanged();
+
 private:
     void    loadVariables();
 

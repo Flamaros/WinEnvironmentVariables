@@ -10,6 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // TODO Voir pour mettre les premieres colonnes de chaque tableaux en ResizeToContents et la derniere en Stretch.
+    // Enlever les resizeColumnsToContents et le strech last section sur les tables
+//    ui->variablesTable->horizontalHeader()->
+
     loadVariables();
 }
 
@@ -43,7 +48,6 @@ void    MainWindow::loadVariables()
     }
 
     QList<Environment::Path>    paths;
-    int                         valueCounter = 0;
 
     paths = mEnvironment.paths();
     ui->pathsTable->setRowCount(paths.size());
@@ -57,22 +61,35 @@ void    MainWindow::loadVariables()
         // TODO put the owner in a combo box
         newItem = new QTableWidgetItem(paths[i].owner);
         ui->pathsTable->setItem(i, 1, newItem);
-
-/*        for (int j = 0; j < paths[i].paths.size(); j++)
-        {
-            newItem = new QTableWidgetItem(paths[i].paths[j]);
-            ui->pathValuesTable->setItem(valueCounter, 0, newItem);
-
-            newItem = new QTableWidgetItem(paths[i].evaluatedPaths[j]);
-            ui->pathValuesTable->setItem(valueCounter, 1, newItem);
-            valueCounter++;
-        }*/
     }
 
-
-/*
     ui->pathsTable->resizeColumnsToContents();
     ui->pathValuesTable->resizeColumnsToContents();
-    ui->variablesTable->resizeColumnsToContents();  // Cause an issue : last column doesn't appear
-*/
+}
+
+void MainWindow::on_pathsTable_itemSelectionChanged()
+{
+    ui->pathValuesTable->clearContents();
+    ui->pathValuesTable->clearSelection();
+
+    if (ui->pathsTable->selectionModel()->selectedRows().empty())
+        return;
+
+    int i = ui->pathsTable->selectionModel()->selectedRows().at(0).row();
+    QList<Environment::Path>    paths;
+
+    paths = mEnvironment.paths();
+    ui->pathValuesTable->setRowCount(paths[i].paths.size());
+    for (int j = 0; j < paths[i].paths.size(); j++)
+    {
+        QTableWidgetItem*   newItem;
+
+        newItem = new QTableWidgetItem(paths[i].paths[j]);
+        ui->pathValuesTable->setItem(j, 0, newItem);
+
+        newItem = new QTableWidgetItem(paths[i].evaluatedPaths[j]);
+        ui->pathValuesTable->setItem(j, 1, newItem);
+    }
+
+    ui->pathValuesTable->resizeColumnsToContents();
 }
