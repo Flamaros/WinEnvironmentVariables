@@ -11,10 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // TODO Voir pour mettre les premieres colonnes de chaque tableaux en ResizeToContents et la derniere en Stretch.
-    // Enlever les resizeColumnsToContents et le strech last section sur les tables
-//    ui->variablesTable->horizontalHeader()->
-
     loadVariables();
 }
 
@@ -47,6 +43,8 @@ void    MainWindow::loadVariables()
         ui->variablesTable->setItem(i, 3, newItem);
     }
 
+    resizeFirstColumns(ui->variablesTable);
+
     QList<Environment::Path>    paths;
 
     paths = mEnvironment.paths();
@@ -63,11 +61,16 @@ void    MainWindow::loadVariables()
         ui->pathsTable->setItem(i, 1, newItem);
     }
 
-    ui->pathsTable->resizeColumnsToContents();
-    ui->pathValuesTable->resizeColumnsToContents();
+    resizeFirstColumns(ui->pathsTable);
 }
 
-void MainWindow::on_pathsTable_itemSelectionChanged()
+void    MainWindow::resizeFirstColumns(QTableWidget* table)
+{
+    for (int i = 0; i < table->columnCount() - 1; i++)
+        table->resizeColumnToContents(i);
+}
+
+void    MainWindow::on_pathsTable_itemSelectionChanged()
 {
     ui->pathValuesTable->clearContents();
     ui->pathValuesTable->clearSelection();
@@ -88,8 +91,9 @@ void MainWindow::on_pathsTable_itemSelectionChanged()
         ui->pathValuesTable->setItem(j, 0, newItem);
 
         newItem = new QTableWidgetItem(paths[i].evaluatedPaths[j]);
+        newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         ui->pathValuesTable->setItem(j, 1, newItem);
     }
 
-    ui->pathValuesTable->resizeColumnsToContents();
+    resizeFirstColumns(ui->pathValuesTable);
 }

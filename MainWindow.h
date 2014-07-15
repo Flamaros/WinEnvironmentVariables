@@ -4,6 +4,8 @@
 
 #include "Environment.h"
 
+class QTableWidget;
+
 namespace Ui {
 class MainWindow;
 }
@@ -21,6 +23,7 @@ private slots:
 
 private:
     void    loadVariables();
+    void    resizeFirstColumns(QTableWidget* table);
 
     Ui::MainWindow *ui;
 
